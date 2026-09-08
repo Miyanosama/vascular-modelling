@@ -1,0 +1,65 @@
+#!/bin/sh
+
+#
+# Gradle wrapper script for Unix/Linux/macOS
+# Generated manually for the Vascular Patterning Model project
+#
+
+# Attempt to set APP_HOME
+PRG="$0"
+while [ -h "$PRG" ]; do
+    ls=$(ls -ld "$PRG")
+    link=$(expr "$ls" : '.*-> \(.*\)$')
+    if expr "$link" : '/' > /dev/null; then
+        PRG="$link"
+    else
+        PRG=$(dirname "$PRG")/"$link"
+    fi
+done
+SAVED="$(pwd)"
+cd "$(dirname "$PRG")/" >/dev/null
+APP_HOME="$(pwd -P)"
+cd "$SAVED" >/dev/null
+
+APP_NAME="Gradle"
+APP_BASE_NAME=$(basename "$0")
+
+WRAPPER_JAR="$APP_HOME/gradle/wrapper/gradle-wrapper.jar"
+
+# Download wrapper jar if not present
+if [ ! -f "$WRAPPER_JAR" ]; then
+    echo ""
+    echo "Downloading Gradle Wrapper JAR..."
+    echo ""
+
+    DOWNLOAD_URL="https://raw.githubusercontent.com/gradle/gradle/v8.12.0/gradle/wrapper/gradle-wrapper.jar"
+
+    if command -v curl >/dev/null 2>&1; then
+        curl -sSL "$DOWNLOAD_URL" -o "$WRAPPER_JAR"
+    elif command -v wget >/dev/null 2>&1; then
+        wget -q "$DOWNLOAD_URL" -O "$WRAPPER_JAR"
+    else
+        echo "ERROR: Need curl or wget to download gradle-wrapper.jar"
+        echo "Download it manually from: $DOWNLOAD_URL"
+        echo "And place it at: $WRAPPER_JAR"
+        exit 1
+    fi
+
+    if [ ! -f "$WRAPPER_JAR" ]; then
+        echo "ERROR: Failed to download gradle-wrapper.jar"
+        exit 1
+    fi
+fi
+
+# Use the JVM from JAVA_HOME if set, otherwise default
+if [ -n "$JAVA_HOME" ]; then
+    JAVACMD="$JAVA_HOME/bin/java"
+else
+    JAVACMD="java"
+fi
+
+exec "$JAVACMD" \
+    -Dorg.gradle.appname="$APP_BASE_NAME" \
+    -classpath "$WRAPPER_JAR" \
+    org.gradle.wrapper.GradleWrapperMain \
+    "$@"
